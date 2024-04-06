@@ -29,4 +29,15 @@ public class Post {
         this.author = dados.author();
         this.createdAt = LocalDateTime.now();
     }
+
+    public void atualizar(DadosEditaPost dados){
+
+        if(dados.title() != null){
+            this.title = dados.title();
+        }
+
+        if(dados.content() != null){
+            this.content = dados.content();
+        }
+    }
 }

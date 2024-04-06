@@ -10,8 +10,11 @@ public record DadosCadastroPost(
         @NotBlank
         @Size(min = 5, max = 100)
         String title,
-        @NotBlank @NotNull
+        @NotBlank
+        @NotNull
+        @Size(min = 5, max = 20)
         String author,
-        @NotBlank @NotNull
+        @NotBlank
+        @NotNull
         String content) {
 }
