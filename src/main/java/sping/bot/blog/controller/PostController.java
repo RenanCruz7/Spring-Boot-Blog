@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import sping.bot.blog.post.*;
 
 import java.util.List;
@@ -17,9 +18,21 @@ public class PostController {
 
     @PostMapping
     @Transactional
-    public void publicarPost(@RequestBody DadosCadastroPost dados){
-        postRepository.save(new Post(dados));
+    public ResponseEntity publicarPost(@RequestBody DadosCadastroPost dados, UriComponentsBuilder uriBuilder){
+        var post = new Post(dados);
+        postRepository.save(post);
+
+        var uri = uriBuilder.path("/Posts/{id}").buildAndExpand(post.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DadosDetalhesPost(post));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosDetalhesPost> detalhar(@PathVariable Long id){
+        var post = postRepository.getReferenceById(id);
+        return  ResponseEntity.ok(new DadosDetalhesPost(post));
+    }
+
     @GetMapping
     public ResponseEntity<List<Post>> listar(){
         var posts = postRepository.findAll();
