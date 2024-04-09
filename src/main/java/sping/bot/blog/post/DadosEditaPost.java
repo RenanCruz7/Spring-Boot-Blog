@@ -6,5 +6,6 @@ public record DadosEditaPost(
         @NotNull
         Long id,
         String title,
-        String content) {
+        String content,
+        Ligue ligue ){
 }

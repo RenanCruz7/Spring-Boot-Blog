@@ -21,12 +21,15 @@ public class Post {
     private String title;
     private String content;
     private String author;
+    @Enumerated(EnumType.STRING)
+    private Ligue ligue;
     private LocalDateTime createdAt;
 
     public Post(DadosCadastroPost dados) {
         this.title = dados.title();
         this.content = dados.content();
         this.author = dados.author();
+        this.ligue = dados.ligue();
         this.createdAt = LocalDateTime.now();
     }
 
@@ -38,6 +41,9 @@ public class Post {
 
         if(dados.content() != null){
             this.content = dados.content();
+        }
+        if(dados.ligue() != null){
+            this.ligue = dados.ligue();
         }
     }
 }

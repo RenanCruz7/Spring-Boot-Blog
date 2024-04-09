@@ -16,5 +16,7 @@ public record DadosCadastroPost(
         String author,
         @NotBlank
         @NotNull
-        String content) {
+        String content,
+        @NotBlank
+        Ligue ligue) {
 }

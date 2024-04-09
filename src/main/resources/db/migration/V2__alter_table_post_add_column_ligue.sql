@@ -1,0 +1,1 @@
+alter table posts add ligue varchar(70) not null;
