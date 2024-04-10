@@ -1,4 +1,4 @@
-package sping.bot.blog.post;
+package sping.bot.blog.domain.post;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,1 +1,1 @@
-alter table posts add ligue varchar(70) not null;
+ALTER TABLE posts ADD ligue VARCHAR(70) NOT NULL;

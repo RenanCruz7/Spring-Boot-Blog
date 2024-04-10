@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import sping.bot.blog.post.*;
-
+import sping.bot.blog.domain.post.*;
+import sping.bot.blog.domain.post.DadosCadastroPost;
 import java.util.List;
 
 @RestController

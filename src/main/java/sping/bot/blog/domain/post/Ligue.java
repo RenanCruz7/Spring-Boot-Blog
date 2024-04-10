@@ -1,4 +1,4 @@
-package sping.bot.blog.post;
+package sping.bot.blog.domain.post;
 
 public enum Ligue {
     Bundesliga,
