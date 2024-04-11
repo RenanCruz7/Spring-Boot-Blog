@@ -1,4 +1,4 @@
-package sping.bot.blog.infra;
+package sping.bot.blog.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
