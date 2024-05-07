@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sping.bot.blog.domain.user.DadosAutenticacao;
 import sping.bot.blog.domain.user.User;
+import sping.bot.blog.infra.security.DadosTokenJWT;
 import sping.bot.blog.infra.security.TokenService;
 
 @RestController
@@ -24,10 +25,12 @@ public class AutenticacaoController {
     private TokenService tokenService;
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
-        var token = new UsernamePasswordAuthenticationToken(dados.username(), dados.password());
-        var authentication = manager.authenticate(token);
+        var authenticationToken = new UsernamePasswordAuthenticationToken(dados.username(), dados.password());
+        var authentication = manager.authenticate(authenticationToken);
 
-        return ResponseEntity.ok(tokenService.gerarToken((User) authentication.getPrincipal()));
+        var tokenJWT = tokenService.gerarToken((User) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 
 }
