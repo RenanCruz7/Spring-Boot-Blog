@@ -12,10 +12,6 @@ public record DadosCadastroPost(
         String title,
         @NotBlank
         @NotNull
-        @Size(min = 5, max = 20)
-        String author,
-        @NotBlank
-        @NotNull
         String content,
         @NotBlank
         Ligue ligue) {

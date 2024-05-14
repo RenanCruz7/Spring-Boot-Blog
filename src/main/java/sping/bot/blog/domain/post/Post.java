@@ -1,16 +1,14 @@
 package sping.bot.blog.domain.post;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Table(name = "posts")
 @Entity(name = "Post")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -28,10 +26,10 @@ public class Post {
     public Post(DadosCadastroPost dados) {
         this.title = dados.title();
         this.content = dados.content();
-        this.author = dados.author();
         this.ligue = dados.ligue();
         this.createdAt = LocalDateTime.now();
     }
+
 
     public void atualizar(DadosEditaPost dados){
 

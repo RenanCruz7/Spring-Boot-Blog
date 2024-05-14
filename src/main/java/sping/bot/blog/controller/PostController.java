@@ -1,5 +1,6 @@
 package sping.bot.blog.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,12 +17,14 @@ public class PostController {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private PublicarPost publicarPost;
+
+
     @PostMapping
     @Transactional
-    public ResponseEntity publicarPost(@RequestBody DadosCadastroPost dados, UriComponentsBuilder uriBuilder){
-        var post = new Post(dados);
-        postRepository.save(post);
-
+    public ResponseEntity publicarPost(@RequestBody DadosCadastroPost dados, HttpServletRequest request , UriComponentsBuilder uriBuilder){
+        Post post = publicarPost.publicar(dados,request);
         var uri = uriBuilder.path("/Posts/{id}").buildAndExpand(post.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new DadosDetalhesPost(post));
