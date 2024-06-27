@@ -23,7 +23,7 @@ public class Post {
     private Ligue ligue;
     private LocalDateTime createdAt;
 
-    public Post(DadosCadastroPost dados) {
+    public Post(CreatePostDTO dados) {
         this.title = dados.title();
         this.content = dados.content();
         this.ligue = dados.ligue();
@@ -31,7 +31,7 @@ public class Post {
     }
 
 
-    public void atualizar(DadosEditaPost dados){
+    public void atualizar(EditPostDTO dados){
 
         if(dados.title() != null){
             this.title = dados.title();

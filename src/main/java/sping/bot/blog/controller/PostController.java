@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import sping.bot.blog.domain.post.*;
-import sping.bot.blog.domain.post.DadosCadastroPost;
+import sping.bot.blog.domain.post.CreatePostDTO;
 import java.util.List;
 
 @RestController
@@ -18,42 +18,42 @@ public class PostController {
     private PostRepository postRepository;
 
     @Autowired
-    private PublicarPost publicarPost;
+    private PublishPost publishPost;
 
 
     @PostMapping
     @Transactional
-    public ResponseEntity publicarPost(@RequestBody DadosCadastroPost dados, HttpServletRequest request , UriComponentsBuilder uriBuilder){
-        Post post = publicarPost.publicar(dados,request);
+    public ResponseEntity PublishPost(@RequestBody CreatePostDTO data, HttpServletRequest request , UriComponentsBuilder uriBuilder){
+        Post post = publishPost.publish(data,request);
         var uri = uriBuilder.path("/Posts/{id}").buildAndExpand(post.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(new DadosDetalhesPost(post));
+        return ResponseEntity.created(uri).body(new DetailsPostDTO(post));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DadosDetalhesPost> detalhar(@PathVariable Long id){
+    public ResponseEntity<DetailsPostDTO> Detail(@PathVariable Long id){
         var post = postRepository.getReferenceById(id);
-        return  ResponseEntity.ok(new DadosDetalhesPost(post));
+        return  ResponseEntity.ok(new DetailsPostDTO(post));
     }
 
     @GetMapping
-    public ResponseEntity<List<Post>> listar(){
+    public ResponseEntity<List<Post>> List(){
         var posts = postRepository.findAll();
         return ResponseEntity.ok(posts);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity atualizar(@RequestBody DadosEditaPost dados){
-        var post = postRepository.getReferenceById(dados.id());
-        post.atualizar(dados);
+    public ResponseEntity Update(@RequestBody EditPostDTO data){
+        var post = postRepository.getReferenceById(data.id());
+        post.atualizar(data);
 
-        return ResponseEntity.ok(new DadosDetalhesPost(post));
+        return ResponseEntity.ok(new DetailsPostDTO(post));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<?> deletar(@PathVariable Long id){
+    public ResponseEntity<?> Delete(@PathVariable Long id){
         if(postRepository.existsById(id)) {
             postRepository.deleteById(id);
             return ResponseEntity.noContent().build();

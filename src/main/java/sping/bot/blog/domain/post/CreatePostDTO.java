@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 //DTO = Data Transfer Object
 //Classe que representa o cadastro de um post
-public record DadosCadastroPost(
+public record CreatePostDTO(
         @NotBlank
         @Size(min = 5, max = 100)
         String title,

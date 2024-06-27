@@ -17,29 +17,29 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 // Dessa forma, sempre que uma exceção EntityNotFoundException for lançada, o método tratarErro404 será chamado e retornará um status 404.
 // Assim, garantimos que a resposta da API seja coerente com o erro ocorrido.
 @RestControllerAdvice
-public class TratadorDeErros {
+public class ErrorHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity tratarErro404() {
+    public ResponseEntity handle404Error() {
         return ResponseEntity.notFound().build();
     }
 
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ResponseEntity tratarErro405() {
+    public ResponseEntity handle405Error() {
         return ResponseEntity.status(405).build();
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity tratarErro400(MethodArgumentNotValidException ex) {
-        var erros = ex.getFieldErrors();
+    public ResponseEntity handleBadRequestError(MethodArgumentNotValidException ex) {
+        var errors = ex.getFieldErrors();
 
-        return ResponseEntity.badRequest().body(erros.stream().map(DadosErroValidacao::new).toList());
+        return ResponseEntity.badRequest().body(errors.stream().map(ValidationErrorData::new).toList());
 
     }
-    private record DadosErroValidacao(String campo, String mensagem) {
-        public DadosErroValidacao(FieldError erro) {
-            this(erro.getField(), erro.getDefaultMessage());
+    private record ValidationErrorData(String campo, String mensagem) {
+        public ValidationErrorData(FieldError error) {
+            this(error.getField(), error.getDefaultMessage());
         }
     }
 }

@@ -2,7 +2,7 @@ package sping.bot.blog.domain.post;
 
 import jakarta.validation.constraints.NotNull;
 
-public record DadosEditaPost(
+public record EditPostDTO(
         @NotNull
         Long id,
         String title,
