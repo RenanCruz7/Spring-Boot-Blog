@@ -1,5 +1,6 @@
 package sping.bot.blog.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("Posts")
+@SecurityRequirement(name = "bearer-key")
 public class PostController {
 
     @Autowired

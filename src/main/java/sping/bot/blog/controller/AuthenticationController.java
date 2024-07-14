@@ -16,7 +16,7 @@ import sping.bot.blog.infra.security.TokenService;
 
 @RestController
 @RequestMapping("Login")
-public class AutenticacaoController {
+public class AuthenticationController {
 
     @Autowired
     private AuthenticationManager manager;
